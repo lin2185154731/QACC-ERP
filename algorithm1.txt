@@ -1,0 +1,27 @@
+Algorithm 1: Quantum ε-A* for Generative Co-Planning
+Input: Task chain C, objectives f_m (makespan), f_e (energy), ε, actor set A
+Output: ε-Pareto optimal plan P*
+Initialize open set O ← ∅, closed set Cl ← ∅
+Start node s ← Encode(C, A)  // QUBO encoding
+g(s) ← 0, h(s) ← Heuristic(s, f_m, f_e)
+O.insert(s)
+While O ≠ ∅
+    n ← argmin_{n' in O} g(n') + (1+ε) h(n')
+    If Goal(n) Return Reconstruct(n)
+    O.remove(n), Cl.add(n)
+    For each successor n' of n
+        Tentative g(n') ← g(n) + Cost(n, n')
+        If n' not in Cl and g(n') < g(n')
+            Update parent of n' to n
+            g(n') ← tentative g(n')
+            h(n') ← QAOA-Optimize(n', f_m, f_e, ε)  // Quantum subroutine
+            If n' not in O O.insert(n')
+QAOA Subroutine:
+Procedure QAOA-Optimize(node, objs, ε)
+    Formulate QUBO Q ← Map(node, objs)
+    Initialize angles γ, β
+    For i = 1 to layers
+        Apply mixer and cost Hamiltonians
+        Measure expectation <Q>
+        Optimize γ, β classically with (1+ε) bound
+    Return Approximated heuristic value
