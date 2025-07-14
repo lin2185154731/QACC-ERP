@@ -12,8 +12,8 @@ This package requires Python 3.12+ and basic libraries. No internet access or ad
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/qacc-erp-reproducibility.git
-   cd qacc-erp-reproducibility
+   git clone https://github.com/lin2185154731/QACC-ERP.git
+   cd QACC-ERP
    ```
 
 2. Install dependencies (listed in `requirements.txt`):
